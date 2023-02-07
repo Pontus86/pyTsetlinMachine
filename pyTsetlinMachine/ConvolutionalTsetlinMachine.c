@@ -558,12 +558,34 @@ void tm_update_regression(struct TsetlinMachine *tm, unsigned int *Xi, int targe
 	}
 }
 
+
+void print_progress_bar(int progress, int max)
+{
+	int bar_length = 50;
+	int prog = (progress * bar_length) / max;
+	
+    int i;
+    printf("\r[");
+    for (i = 0; i < prog; i++)
+        printf("#");
+    for (; i < bar_length; i++)
+        printf(" ");
+    printf("] %d%%", (progress * 100) / max);
+	printf("  Epoch: %d", progress);
+    fflush(stdout);
+	if(progress == max)
+		printf("\n");
+}
+
+
 void tm_fit_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int number_of_examples, int epochs)
 {
 	unsigned int step_size = tm->number_of_patches * tm->number_of_ta_chunks;
 
 	for (int epoch = 0; epoch < epochs; epoch++) {
 		// Add shuffling here...
+		print_progress_bar(epoch, epochs);
+		
 		unsigned int pos = 0;
 		for (int i = 0; i < number_of_examples; i++) {
 			tm_update_regression(tm, &X[pos], y[i]);
@@ -571,6 +593,8 @@ void tm_fit_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int n
 		}
 	}
 }
+
+
 
 int tm_score_regression(struct TsetlinMachine *tm, unsigned int *Xi) {
 	/*******************************/

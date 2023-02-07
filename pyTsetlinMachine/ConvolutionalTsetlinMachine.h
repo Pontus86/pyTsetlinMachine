@@ -84,6 +84,8 @@ void tm_fit_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int n
 
 int tm_score_regression(struct TsetlinMachine *tm, unsigned int *Xi);
 
+void print_progress_bar(int progress, int max);
+
 void tm_predict_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int number_of_examples);
 
 void tm_get_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state);

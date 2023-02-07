@@ -27,7 +27,8 @@ import os
 
 this_dir, this_filename = os.path.split(__file__)
 print(this_dir)
-_lib = np.ctypeslib.load_library('libTM.so', os.path.join(this_dir, ""))    
+print(this_filename)
+_lib = np.ctypeslib.load_library('libTM', os.path.join(this_dir, ".."))    
 
 class CEmbeddingTsetlinMachine(C.Structure):
 	None
